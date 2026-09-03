@@ -1,0 +1,194 @@
+<section id="projects" class="bg-white py-32 text-zinc-950 dark:bg-zinc-950 dark:text-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <!-- Section heading -->
+    <div class="max-w-2xl">
+      <p
+        class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400"
+      >
+        {{ t().projects.section.label }}
+      </p>
+
+      <h2 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        {{ t().projects.section.title }}
+      </h2>
+
+      <p class="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        {{ t().projects.section.description }}
+      </p>
+    </div>
+
+    <!-- Projects -->
+    <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+      @for (project of projects; track project.number) {
+        <article appReveal class="project-card reveal">
+          <!-- Browser preview -->
+          <div
+            class="group overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
+          >
+            <!-- Browser bar -->
+            <div
+              class="flex h-10 items-center gap-2 border-b border-zinc-200 px-4 dark:border-zinc-800"
+            >
+              <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
+
+              <span class="h-2.5 w-2.5 rounded-full bg-violet-500"></span>
+
+              <span class="h-2.5 w-2.5 rounded-full bg-red-500"></span>
+
+              <div class="ml-4 h-6 flex-1 rounded-md bg-zinc-200/70 dark:bg-zinc-800/70"></div>
+            </div>
+
+            <!-- Screenshot -->
+            <div class="relative aspect-[12/6] overflow-hidden swiper cursor-pointer">
+              <swiper-container
+                class="relative z-0 block h-full w-full"
+                #swiper
+                slides-per-view="1"
+                pagination="true"
+              >
+                @for (image of project.images; track $index) {
+                  <swiper-slide>
+                    <img
+                      [src]="image"
+                      class="h-full w-full object-cover"
+                      (click)="openPreview(project, $index)"
+                    />
+                  </swiper-slide>
+                }
+              </swiper-container>
+              <!-- Previous -->
+              <button
+                type="button"
+                class="absolute left-4 z-10 top-1/2 cursor-pointer flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/70 hover:scale-105"
+                aria-label="Previous image"
+                (click)="swiper.swiper.slidePrev()"
+              >
+                <i class="fa-solid fa-chevron-left text-xs" aria-hidden="true"></i>
+              </button>
+
+              <!-- Next -->
+              <button
+                type="button"
+                class="absolute right-4 top-1/2 cursor-pointer z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/70 hover:scale-105"
+                aria-label="Next image"
+                (click)="swiper.swiper.slideNext()"
+              >
+                <i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Project information -->
+          <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_auto]">
+            <div>
+              <p class="text-sm font-medium text-zinc-400">
+                {{ project.number }} /
+                {{ t().projects[project.translationKey].category }}
+              </p>
+
+              <h3 class="mt-2 text-3xl font-bold tracking-tight">
+                {{ t().projects[project.translationKey].title }}
+              </h3>
+
+              <p class="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+                {{ t().projects[project.translationKey].description }}
+              </p>
+
+              <div class="mt-6 flex flex-wrap gap-2">
+                @for (technology of project.technologies; track $index) {
+                  <span
+                    class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm"
+                    [class]="technology.bg + ' ' + technology.color"
+                  >
+                    @if (technology.icon) {
+                      <i [class]="technology.icon" aria-hidden="true"></i>
+                    }
+
+                    {{ technology.name }}
+                  </span>
+                }
+              </div>
+            </div>
+
+            <div class="flex items-start gap-6">
+              @if (project.liveUrl) {
+                <a
+                  [href]="project.liveUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-semibold hover:underline"
+                >
+                  {{ t().projects.liveDemo }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              }
+
+              @if (project.githubUrl) {
+                <a
+                  [href]="project.githubUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-semibold hover:underline"
+                >
+                  {{ t().projects.github }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- Fullscreen preview -->
+    <div class="fullscreen-preview">
+      @if (selectedProject) {
+        <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-6">
+          <!-- Close -->
+          <button
+            type="button"
+            class="absolute right-6 top-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 cursor-pointer"
+            aria-label="Close preview"
+            (click)="closePreview()"
+          >
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+
+          <!-- Image -->
+          <swiper-container
+            #previewSwiper
+            class="block h-[90vh] w-[90vw]"
+            slides-per-view="1"
+            navigation="false"
+            [initialSlide]="selectedImageIndex"
+          >
+            @for (image of selectedProject.images; track $index) {
+              <swiper-slide class="flex h-full w-full items-center justify-center">
+                <img [src]="image" class="max-h-full max-w-full object-contain" />
+              </swiper-slide>
+            }
+          </swiper-container>
+          <!-- Previous -->
+          <button
+            type="button"
+            class="absolute left-4 z-10 top-1/2 flex h-9 w-9 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition hover:bg-black/70 hover:scale-105"
+            aria-label="Previous image"
+            (click)="previewSwiper.swiper.slidePrev()"
+          >
+            <i class="fa-solid fa-chevron-left text-xs" aria-hidden="true"></i>
+          </button>
+
+          <!-- Next -->
+          <button
+            type="button"
+            class="absolute right-4 top-1/2 z-10 flex h-9 w-9 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-black/70 hover:scale-105"
+            aria-label="Next image"
+            (click)="previewSwiper.swiper.slideNext()"
+          >
+            <i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

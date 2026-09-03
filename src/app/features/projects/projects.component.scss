@@ -1,0 +1,59 @@
+
+:host ::ng-deep swiper-container::part(button-prev),
+:host ::ng-deep swiper-container::part(button-next) {
+  width: 25px;
+  height: 25px;
+  font-size: 12px !important;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 45%);
+  backdrop-filter: blur(8px);
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+:host ::ng-deep swiper-container::part(button-prev)::after,
+:host ::ng-deep swiper-container::part(button-next)::after {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep swiper-container::part(button-prev):hover,
+:host ::ng-deep swiper-container::part(button-next):hover {
+  background: rgba(19, 19, 19, 0.7);
+  transform: scale(1.05);
+}
+
+.swiper {
+  button {
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease;
+  }
+
+  button:first-of-type {
+    transform: translateX(-20px);
+  }
+
+  button:last-of-type {
+    transform: translateX(20px);
+  }
+
+  &:hover {
+    button {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+  }
+}
+
+.project-card:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.project-card:nth-child(2) {
+  transition-delay: 150ms;
+}
+

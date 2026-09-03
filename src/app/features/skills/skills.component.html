@@ -1,0 +1,55 @@
+<section id="skills" class="bg-zinc-50 pb-25 pt-20 text-zinc-950 dark:bg-zinc-900 dark:text-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <!-- Section heading -->
+    <div class="max-w-2xl">
+      <p
+        class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400"
+      >
+        {{ t().skills.section.label }}
+      </p>
+
+      <h2 class="text-4xl font-bold tracking-tight sm:text-5xl">{{ t().skills.section.title }}</h2>
+
+      <p class="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        {{ t().skills.section.description }}
+      </p>
+    </div>
+
+    <!-- Skill groups -->
+    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      @for (group of skillGroups(); track group.translationKey) {
+        <article
+          appReveal
+          class="group reveal rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-950"
+        >
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold">
+              {{ t().skills.groups[group.translationKey].title }}
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
+              {{ t().skills.groups[group.translationKey].description }}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            @for (skill of group.skills; track skill.name) {
+              <div
+                class="flex items-center gap-2 rounded-xl border border-zinc-200 px-3 py-2 text-sm font-medium dark:border-zinc-800"
+              >
+                <span
+                  class="flex h-7 w-7 items-center justify-center rounded-lg"
+                  [class]="skill.bg"
+                >
+                  <i [class]="skill.icon + ' ' + skill.color" aria-hidden="true"></i>
+                </span>
+
+                <span>{{ skill.name }}</span>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

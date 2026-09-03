@@ -1,0 +1,9 @@
+<button
+  [class.active]="isVisible()"
+  type="button"
+  class="scroll-btn fixed bottom-5 right-5 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
+  aria-label="Scroll to top"
+  (click)="scrollToTop()"
+>
+  <i class="fa-solid fa-angle-up" aria-hidden="true"></i>
+</button>

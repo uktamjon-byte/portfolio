@@ -1,0 +1,94 @@
+<section id="contact" class="pb-25 pt-20 text-zinc-950 dark:bg-zinc-900 dark:text-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="rounded-3xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+      <div appReveal class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] reveal">
+        <!-- Main CTA -->
+        <div class="p-8 sm:p-12 lg:p-16">
+          <p
+            class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400"
+          >
+            {{ t().contact.section.label }}
+          </p>
+
+          <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl text-pretty">
+            {{ t().contact.section.title }}
+          </h2>
+
+          <p class="mt-6 max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400 text-balance">
+            {{ t().contact.section.description }}
+          </p>
+
+          <!-- Actions -->
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a
+              href="mailto:toshmatoveuktam2000@gmail.com"
+              class="inline-flex items-center gap-2 rounded-xl bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:bg-white dark:text-zinc-950"
+            >
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              {{ t().contact.actions.contactMe }}
+            </a>
+
+            <a
+              href="/assets/cv/cv.pdf"
+              download
+              class="inline-flex items-center gap-2 rounded-xl border border-zinc-200 px-5 py-3 text-sm font-semibold transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-900"
+            >
+              <i class="fa-solid fa-download" aria-hidden="true"></i>
+              {{ t().contact.actions.downloadCv }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact links -->
+        <div
+          class="border-t p-8 border-zinc-200 sm:p-12 lg:border-l lg:border-t-0 lg:p-16 dark:border-zinc-800"
+        >
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500"
+          >
+            {{ t().contact.profiles }}
+          </p>
+
+          <div class="mt-8 space-y-4">
+            @for (contact of contactLinks(); track contact.translationKey) {
+              <a
+                [href]="contact.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-4 rounded-2xl p-2 border border-zinc-200 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg dark:border-zinc-800"
+              >
+                <!-- Icon -->
+                <span
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                >
+                  <i [class]="contact.icon" aria-hidden="true"></i>
+                </span>
+
+                <!-- Text -->
+                <span class="min-w-0 flex-1">
+                  <span
+                    class="block text-xs font-semibold uppercase tracking-[0.1em] text-zinc-400"
+                  >
+                    {{ t().contact.links[contact.translationKey] }}
+                  </span>
+
+                  <span
+                    class="mt-1 block truncate text-sm font-medium text-zinc-700 dark:text-zinc-300"
+                  >
+                    {{ contact.value }}
+                  </span>
+                </span>
+
+                <!-- External link -->
+                <i
+                  class="fa-solid fa-arrow-up-right-from-square shrink-0 text-xs text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

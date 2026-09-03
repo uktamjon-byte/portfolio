@@ -1,0 +1,11 @@
+.scroll-btn{
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8 ease
+                 transform 0.8 ease;
+}
+
+.scroll-btn.active { 
+    opacity: 1;
+    transform: translateY(0);
+}

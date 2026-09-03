@@ -1,0 +1,81 @@
+<section
+  id="experience"
+  class="bg-white pb-25 pt-20 text-zinc-950 dark:bg-zinc-950 dark:text-white"
+>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <!-- Section heading -->
+    <div class="max-w-2xl">
+      <p
+        class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400"
+      >
+        {{ t().experience.section.label }}
+      </p>
+
+      <h2 class="text-4xl font-bold tracking-tight sm:text-5xl">
+        {{ t().experience.section.title }}
+      </h2>
+
+      <p class="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        {{ t().experience.section.description }}
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="mt-20">
+      @for (experience of experiences(); track $index) {
+        <article
+          appReveal
+          class="experience-section reveal relative grid gap-8 border-l border-zinc-200 pl-8 pb-16 last:pb-0 dark:border-zinc-800 lg:grid-cols-[180px_1fr] lg:gap-16 lg:pl-10"
+        >
+          <!-- Timeline dot -->
+          <div
+            class="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-zinc-950 ring-8 ring-white dark:bg-white dark:ring-zinc-950"
+          ></div>
+
+          <!-- Period -->
+          <div>
+            <p class="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+              {{ t().experience.projects[experience.translationKey].period }}
+            </p>
+
+            <p
+              class="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500"
+            >
+              {{ t().experience.projects[experience.translationKey].type }}
+            </p>
+          </div>
+
+          <!-- Content -->
+          <div class="max-w-3xl">
+            <h3 class="text-2xl font-semibold tracking-tight">
+              {{ t().experience.projects[experience.translationKey].role }}
+            </h3>
+
+            <p class="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              {{ t().experience.projects[experience.translationKey].company }}
+            </p>
+
+            <p class="mt-6 leading-8 text-zinc-600 dark:text-zinc-400">
+              {{ t().experience.projects[experience.translationKey].description }}
+            </p>
+
+            <ul class="mt-6 space-y-3">
+              @for (
+                highlight of t().experience.projects[experience.translationKey].highlights;
+                track highlight
+              ) {
+                <li class="flex gap-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                  <span
+                    class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400 dark:bg-zinc-600"
+                  ></span>
+
+                  <span>{{ highlight }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

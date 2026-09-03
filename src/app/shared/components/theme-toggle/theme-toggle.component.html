@@ -1,0 +1,14 @@
+<button
+  type="button"
+  (click)="themeService.toggle()"
+  class="flex size-10 items-center cursor-pointer justify-center rounded-full border border-zinc-200 bg-white/80 text-zinc-700 backdrop-blur transition duration-200 hover:scale-105 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:bg-zinc-800"
+  [attr.aria-label]="
+    themeService.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+  "
+>
+  @if (themeService.theme() === 'dark') {
+    ☀
+  } @else {
+    ☾
+  }
+</button>
