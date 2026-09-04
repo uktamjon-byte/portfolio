@@ -1,6 +1,6 @@
 import { effect, Injectable, signal } from '@angular/core';
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'dark' | 'light';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +25,11 @@ export class ThemeService {
 
   private getInitialTheme(): Theme {
     const stored = localStorage.getItem(this.storageKey);
-
     if (stored === 'light' || stored === 'dark') {
       return stored;
     }
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return 'dark';
   }
 
   private applyTheme(theme: Theme): void {
